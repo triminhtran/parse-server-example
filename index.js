@@ -39,6 +39,31 @@ app.get('/', function(req, res) {
   res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
 });
 
+var server = ParseServer({
+  ...otherOptions,
+  // Enable email verification
+  verifyUserEmails: true,
+  // The public URL of your app.
+  // This will appear in the link that is used to verify email addresses and reset passwords.
+  // Set the mount path as it is in serverURL
+  publicServerURL: 'https://PBB.com/parse',
+  // Your apps name. This will appear in the subject and body of the emails that are sent.
+  appName: 'pbb2017',
+  // The email adapter
+  emailAdapter: {
+    module: 'parse-server-simple-mailgun-adapter',
+    options: {
+      // The address that your emails come from
+      fromAddress: 'PBB@CMPE195.com',
+      // Your domain from mailgun.com
+      domain: 'mg.tritran.com',
+      // Your API key from mailgun.com
+      apiKey: 'key-5999a7345ec844fe4d06ac4dd3a984c5',
+    }
+  }
+});
+
+
 // There will be a test page available on the /test path of your server url
 // Remove this before launching your app
 app.get('/test', function(req, res) {
